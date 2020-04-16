@@ -318,18 +318,18 @@ def main():
     root.resizable(0, 0)
     center_window(root, 500, 170)
     # menu = tkinter.Menu(title='aaa')
-    token_label = tkinter.Label(root, text="在下面输入浏览器获取到的cookie:")
+    cookie_label = tkinter.Label(root, text="在下面输入浏览器获取到的cookie:")
     root_res_label = tkinter.Label(root, text='')
 
     # 创建一个输入框,并设置尺寸
-    token_text = tkinter.Text(root, width=50, height=5)
+    cookie_text = tkinter.Text(root, width=50, height=5)
     # 创建一个查询结果的按钮
-    token_label.pack()
-    token_text.pack()
+    cookie_label.pack()
+    cookie_text.pack()
 
     root_res_label.pack()
-    token_label.place(relx=0.3, rely=0.1)
-    token_text.place(relx=0.15, rely=0.25)
+    cookie_label.place(relx=0.3, rely=0.1)
+    cookie_text.place(relx=0.15, rely=0.25)
 
     root_res_label.place(relx=0.8, rely=0.75)
 
@@ -339,10 +339,10 @@ def main():
     with open(os.getcwd() + '\\token') as f:
         str = f.read()
 
-    token_text.insert(tkinter.INSERT, str)
+    cookie_text.insert(tkinter.INSERT, str)
     # str = g.read()
     result_button = tkinter.Button(root, command=lambda: intoFunc(root_res_label, root,
-                                                                  token_text.get(0.1, END).replace("\n", "")),
+                                                                  cookie_text.get(0.1, END).replace("\n", "")),
                                    text="进入",
                                    width=30)
     # result_button.bind()

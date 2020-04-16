@@ -1,31 +1,36 @@
-"""
-@Author : 行初心
-@Date   : 18-10-1
-@Blog   : www.cnblogs.com/xingchuxin
-@Gitee  : gitee.com/zhichengjiu
-"""
-from tkinter import *
+import json
+import time
 
-def clickFunc(v):
-    print(v.get())
+from urllib import request, parse
+
+import requests
+
+
 def main():
-    root = Tk()
+    cookie = 'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbl9uYW1lIjoi5rS7552ANCIsImlkIjoiNWRmYzZkMjE5NTRjNTk2NjU0ZDE0MWQ4IiwiaWF0IjoxNTc2OTkxMzQzLCJleHAiOjE1Nzk1ODMzNDN9.PX44aoZNLKn8zqbVkcVjcYao9nPR4tMSMECHMA8rghE'
+    # 获取用户信息
+    useGoodsToUser = request.Request('http://joucks.cn:3344/api/useGoodsToUser')
+    useGoodsToUser.add_header('Cookie', cookie)
+    # for i in range(1000,9999):
+    buy_data = parse.urlencode({'ugid':'5dfc8bd278111f6f4cbb900b',
+                            })
+    count = 0
+    while True:
+        with request.urlopen(useGoodsToUser,data=buy_data.encode('utf-8')) as f:
+            getUserGoodsRes = f.read().decode('utf-8')
+            getUserGoodsJson = json.loads(getUserGoodsRes)
+            if getUserGoodsJson['code'] == 200:
+                count+=1
+                print(count)
+                time.sleep(0.3)
 
-    v = IntVar()
-    v.set(2)  # 如果1，那么儒家被默认选中
-    # 如果2，那么道家被默认选中
-    # 如果3，那么佛家被默认选中
-
-    rb1 = Radiobutton(root, text='儒家', command=lambda:clickFunc(v),variable=v, value=1)
-    rb1.pack()
-
-    rb2 = Radiobutton(root, text='道家', command=lambda:clickFunc(v),variable=v, value=2)
-    rb2.pack()
-
-    rb3 = Radiobutton(root, text='佛家',command=lambda:clickFunc(v), variable=v, value=3)
-    rb3.pack()
-
-    mainloop()
+            # if getUserGoodsJson['code']==200:
+            #     print('成功,密码是:'+str(i))
+        # time.sleep(1)
+    # userInfo = request.urlopen(getUserTask)
+    # userInfoStr = userInfo.read().decode('utf-8')
+    # userInfoJson = json.loads(userInfoStr)
+    # user_active = userInfoJson['data']['user']['vitality_num']
 
 
 if __name__ == '__main__':
